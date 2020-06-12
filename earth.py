@@ -32,6 +32,7 @@ degs = 180 / pi
 rads = pi / 180
 
 RES = 1200, 600
+inter = 120     # update interval in seconds
 
 def init():
     t = time.gmtime(time.time())
@@ -176,7 +177,7 @@ class Earth:
         s.screen = pygame.display.set_mode(s.res)
         pygame.display.set_caption('Earth')
         s.clock = pygame.time.Clock()
-        s.start = True
+        s.last = 0
 
     def events(s):
         for event in pygame.event.get():
@@ -185,16 +186,15 @@ class Earth:
     def run(s):
         s.running = True
         while s.running:
-            s.clock.tick(1)
+            s.clock.tick(10)
             s.events()
             s.update()
         pygame.quit()
 
     def update(s):
-        if not s.start:
-            time.sleep(120)
-        if s.start:
-            s.start = False
+        if time.time() - s.last < inter:
+            return
+        s.last = time.time()
         out = calc_image()
         s.screen.blit(out, (0, 0))
         pygame.display.flip()
