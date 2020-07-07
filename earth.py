@@ -178,6 +178,7 @@ class Earth:
         pygame.display.set_caption('Earth')
         s.clock = pygame.time.Clock()
         s.last = 0
+        s.out = None
 
     def events(s):
         for event in pygame.event.get():
@@ -193,10 +194,13 @@ class Earth:
 
     def update(s):
         if time.time() - s.last < inter:
+            if s.out:
+                s.screen.blit(s.out, (0, 0))
+                pygame.display.flip()
             return
         s.last = time.time()
-        out = calc_image()
-        s.screen.blit(out, (0, 0))
+        s.out = calc_image()
+        s.screen.blit(s.out, (0, 0))
         pygame.display.flip()
 
 c = Earth()
