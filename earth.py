@@ -174,15 +174,20 @@ class Earth:
     def __init__(s):
         pygame.init()
         s.res = RES
-        s.screen = pygame.display.set_mode(s.res)
+        s.screen = pygame.display.set_mode(s.res, pygame.RESIZABLE)
         pygame.display.set_caption('Earth')
         s.clock = pygame.time.Clock()
         s.last = 0
         s.out = None
+        s.out2 = None
 
     def events(s):
         for event in pygame.event.get():
             if event.type == pygame.QUIT: s.running = False
+            if event.type == pygame.VIDEORESIZE:
+                s.res = event.w, event.h
+                s.screen = pygame.display.set_mode(s.res, pygame.RESIZABLE)
+                s.out2 = None
 
     def run(s):
         s.running = True
@@ -195,12 +200,15 @@ class Earth:
     def update(s):
         if time.time() - s.last < inter:
             if s.out:
-                s.screen.blit(s.out, (0, 0))
+                if s.out2 == None:
+                    s.out2 = pygame.transform.smoothscale(s.out, (s.res))
+                s.screen.blit(s.out2, (0, 0))
                 pygame.display.flip()
             return
         s.last = time.time()
         s.out = calc_image()
-        s.screen.blit(s.out, (0, 0))
+        s.out2 = pygame.transform.smoothscale(s.out, (s.res))
+        s.screen.blit(s.out2, (0, 0))
         pygame.display.flip()
 
 c = Earth()
