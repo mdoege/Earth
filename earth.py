@@ -192,7 +192,7 @@ class Earth:
     def run(s):
         s.running = True
         while s.running:
-            s.clock.tick(10)
+            s.clock.tick(1)
             s.events()
             s.update()
         pygame.quit()
