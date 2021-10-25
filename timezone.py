@@ -143,7 +143,7 @@ def xy2ll(x, y, res):
 def plot(x, y, alt, width):
     ix = 4*int(y * width + x)
     if alt >= 0:
-        odat[ix:ix+4] = [255,255,255,0]
+        odat[ix:ix+4] = [0,0,0,max(0, int(128 - 300 * alt))]
     else:
         odat[ix:ix+4] = [0,0,0,128]
 
