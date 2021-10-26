@@ -22,7 +22,7 @@ tpi = 2 * pi
 degs = 180 / pi
 rads = pi / 180
 
-RES = 1200, 615
+RES = 1200, 600
 inter = 60     # update interval in seconds
 
 def init():
