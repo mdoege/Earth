@@ -4,6 +4,11 @@ Renders an image of day and night regions on Earth using PyGame and the NASA Blu
 
 Time zone map by Goran tek-en from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Time_zones_of_the_world-UTC.svg)
 
-![screenshot](https://github.com/mdoege/Earth/raw/master/earth.png "Earth screenshot with satellite picture")
+earth.py:
+![screenshot](https://github.com/mdoege/Earth/raw/master/prev/earth.png "Earth screenshot with satellite picture")
 
-![screenshot](https://github.com/mdoege/Earth/raw/master/timezones.png "Earth screenshot with time zone map")
+timezone.py:
+![screenshot](https://github.com/mdoege/Earth/raw/master/prev/timezones.png "Earth screenshot with time zone map")
+
+earth4k.py:
+![screenshot](https://github.com/mdoege/Earth/raw/master/prev/earth4k.png "Earth screenshot with time zone map")
