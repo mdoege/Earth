@@ -11,4 +11,4 @@ timezone.py:
 ![screenshot](https://github.com/mdoege/Earth/raw/master/prev/timezones.png "Earth screenshot with time zone map")
 
 earth4k.py:
-![screenshot](https://github.com/mdoege/Earth/raw/master/prev/earth4k.png "Earth screenshot with time zone map")
+![screenshot](https://github.com/mdoege/Earth/raw/master/prev/earth4k.png "Earth screenshot 4k satellite version")
