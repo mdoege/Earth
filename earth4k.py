@@ -26,6 +26,8 @@ rads = pi / 180
 
 RES = 1200, 600
 inter = 60     # update interval in seconds
+NIGHT_ALPHA = 130  # alpha value of night shadow
+FALLOFF = 150      # shadow blending factor
 
 def init():
     t = time.gmtime(time.time())
@@ -107,10 +109,10 @@ def xy2ll(x, y, res):
 def plot(img1, img2, x, y, alt, width):
     ix = 4*int(y * width + x)
     if alt >= 0:
-        img1[ix:ix+4] = [0, 0, 47, max(0, int(180 - 150 * alt))]
+        img1[ix:ix+4] = [0, 0, 47, max(0, int(NIGHT_ALPHA - FALLOFF * alt))]
         img2[ix:ix+4] = [0, 0, 0, 255]
     else:
-        img1[ix:ix+4] = [0, 0, 47, 180]
+        img1[ix:ix+4] = [0, 0, 47, NIGHT_ALPHA]
         img2[ix:ix+4] = [0, 0, 0, 0]
 
 def calc_image(res = RES):
