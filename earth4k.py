@@ -107,10 +107,10 @@ def xy2ll(x, y, res):
 def plot(img1, img2, x, y, alt, width):
     ix = 4*int(y * width + x)
     if alt >= 0:
-        img1[ix:ix+4] = [0, 0, 47, max(0, int(210 - 150 * alt))]
+        img1[ix:ix+4] = [0, 0, 47, max(0, int(180 - 150 * alt))]
         img2[ix:ix+4] = [0, 0, 0, 255]
     else:
-        img1[ix:ix+4] = [0, 0, 47, 210]
+        img1[ix:ix+4] = [0, 0, 47, 180]
         img2[ix:ix+4] = [0, 0, 0, 0]
 
 def calc_image(res = RES):
