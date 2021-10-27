@@ -101,7 +101,7 @@ def calc_alt(RA, Decl, lat, long, h):
 lmin, lmax = -59.5, 85.3
 
 def ns(x):
-    return "%.1f" % x
+    return "%.2f" % x
 
 def miller():
     q = lmin
@@ -109,7 +109,7 @@ def miller():
     while q <= lmax + 1:
         p = q * pi / 180
         t[ns(q)] = 1.25 * asinh(tan(.8 * p))
-        q += .1
+        q += .02
     return t
 mil = miller()
 top, bot = mil[ns(lmax)], mil[ns(lmin)]
