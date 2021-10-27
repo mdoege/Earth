@@ -15,8 +15,10 @@ from math import *
 import os, sys, time
 import pygame
 
-day   = "earth.jpg"          # images for day
-bgmap = pygame.image.load(day)
+day   = "earth4k.png"        # image for day
+bgmap_d = pygame.image.load(day)
+night = "nightearth.png"     # image for night
+bgmap_n = pygame.image.load(night)
 
 tpi = 2 * pi
 degs = 180 / pi
@@ -102,17 +104,18 @@ def xy2ll(x, y, res):
     lon = float(x) / res[0] * 360. - 180.
     return lat, lon
 
-def plot(x, y, alt, width):
+def plot(img1, img2, x, y, alt, width):
     ix = 4*int(y * width + x)
     if alt >= 0:
-        odat[ix:ix+4] = [0,0,0,max(0, int(128 - 300 * alt))]
+        img1[ix:ix+4] = [0, 0, 47, max(0, int(210 - 150 * alt))]
+        img2[ix:ix+4] = [0, 0, 0, 255]
     else:
-        odat[ix:ix+4] = [0,0,0,128]
+        img1[ix:ix+4] = [0, 0, 47, 210]
+        img2[ix:ix+4] = [0, 0, 0, 0]
 
 def calc_image(res = RES):
-    global odat
-
-    odat = 4 * res[0] * res[1] * []
+    odat   = 4 * res[0] * res[1] * []
+    odat_n = 4 * res[0] * res[1] * []
 
     y, m, d, h = init()
     ra, dec = calc_ra_dec(y, m, d, h)
@@ -123,11 +126,13 @@ def calc_image(res = RES):
         for x in range(res[0]):
             lat, lon = xy2ll(x, y, res)
             alt = calc_alt(ra, dec, lat, lon, h)
-            plot(x, y, alt, res[0])    
+            plot(odat, odat_n, x, y, alt, res[0])    
 
-    output = bytes(odat)
-    result = pygame.image.fromstring(output, res, "RGBA")
-    return result
+    output1 = bytes(odat)
+    result1 = pygame.image.fromstring(output1, res, "RGBA")
+    output2 = bytes(odat_n)
+    result2 = pygame.image.fromstring(output2, res, "RGBA")
+    return result1, result2
 
 class Earth:
     def __init__(s):
@@ -161,17 +166,25 @@ class Earth:
             if s.out:
                 if s.out2 == None:
                     s.out2 = pygame.transform.smoothscale(s.out, (s.res))
-                    s.map = pygame.transform.smoothscale(bgmap, (s.res))
+                    s.map = pygame.transform.smoothscale(bgmap_d, (s.res))
                 s.screen.blit(s.map, (0, 0))
                 s.screen.blit(s.out2, (0, 0))
+                lights = pygame.transform.smoothscale(s.lights, (s.res))
+                night = pygame.transform.smoothscale(bgmap_n, (s.res))
+                night.blit(lights, (0,0))
+                s.screen.blit(night, (0,0), special_flags = pygame.BLEND_RGB_ADD)
                 pygame.display.flip()
             return
         s.last = time.time()
-        s.out = calc_image()
+        s.out, s.lights = calc_image()
         s.out2 = pygame.transform.smoothscale(s.out, (s.res))
-        s.map = pygame.transform.smoothscale(bgmap, (s.res))
+        s.map = pygame.transform.smoothscale(bgmap_d, (s.res))
         s.screen.blit(s.map, (0, 0))
         s.screen.blit(s.out2, (0, 0))
+        lights = pygame.transform.smoothscale(s.lights, (s.res))
+        night = pygame.transform.smoothscale(bgmap_n, (s.res))
+        night.blit(lights, (0,0))
+        s.screen.blit(night, (0,0), special_flags = pygame.BLEND_RGB_ADD)
         pygame.display.flip()
 
 c = Earth()
