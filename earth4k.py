@@ -17,7 +17,7 @@ import pygame
 
 day   = "earth4k_3.png"      # image for day
 bgmap_d = pygame.image.load(day)
-night = "nightearth.png"     # image for night
+night = "BlackMarble_2016_3km_gray_geo.png"     # image for night
 bgmap_n = pygame.image.load(night)
 
 tpi = 2 * pi
