@@ -15,7 +15,7 @@ from math import *
 import os, sys, time
 import pygame
 
-day   = "earth4k_3_terrain.png"      # image for day
+day   = "earth4k_3_bright.png"      # image for day
 bgmap_d = pygame.image.load(day)
 night = "BlackMarble_2016_3km_gray_geo.png"     # image for night
 bgmap_n = pygame.image.load(night)
